@@ -1,13 +1,11 @@
 import { DateTime } from "luxon";
 import { data } from "../seed/data";
+import { iRecord } from "./types";
 import { isLess } from "./utils/functions";
-import { iRecord } from "./utils/types";
 
 let startDate = DateTime.fromJSDate(new Date("2020-07-16"));
 let endDate = DateTime.fromJSDate(new Date("2020-09-05"));
 // let endDate = DateTime.fromJSDate(new Date("2021-04-30"));
-
-
 
 // -- main
 
@@ -23,7 +21,7 @@ while (isLess(startDate, endDate)) {
         fileNo: element.fileNo,
         type: "F1",
         date: startDate.toISODate().toString(),
-        timeAt: "09:00",
+        timeIn: "09:00",
         location: "مبنى الوزارة الرئيسي",
       });
       table.push({
@@ -31,7 +29,7 @@ while (isLess(startDate, endDate)) {
         fileNo: element.fileNo,
         type: "F2",
         date: startDate.toISODate().toString(),
-        timeOut: "13:00",
+        timeIn: "13:00",
         location: "مبنى الوزارة الرئيسي",
       });
     }
@@ -51,11 +49,11 @@ function appendToBody(data: iRecord[]) {
   <head></thead>
   <tbody>
   ${data.map((record) => {
-    const { civilID, timeOut, location, type, date, fileNo, timeAt } = record;
+    const { civilID, location, type, date, fileNo, timeIn } = record;
     return `<tr>
       <td>${civilID}</td>
       <td>${date}</td>
-      <td>${timeAt ?? timeOut}</td>
+      <td>${timeIn}</td>
       <td>${type}</td>
       <td>${fileNo}</td>
       <td>${location}</td>
