@@ -1,0 +1,18 @@
+* {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+table {
+  tr {
+    &:nth-child(odd) {
+      background: lightblue;
+    }
+    &:nth-child(even) {
+      background: white;
+    }
+  }
+  td {
+    border: 1px solid green;
+  }
+}

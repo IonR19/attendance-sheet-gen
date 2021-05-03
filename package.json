@@ -4,19 +4,20 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "@types/luxon": "^1.26.5",
-    "@types/react": "^17.0.4",
-    "@types/react-dom": "^17.0.3",
     "luxon": "^1.26.0",
     "moment": "^2.29.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   },
   "devDependencies": {
-    "@parcel/transformer-sass": "^2.0.0-nightly.628"
+    "@parcel/transformer-sass": "^2.0.0-nightly.628",
+    "@types/luxon": "^1.26.5",
+    "@types/react": "^17.0.4",
+    "@types/react-dom": "^17.0.3"
   },
   "type": "module",
   "scripts": {
+    "start": "parcel public\\index.html",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
