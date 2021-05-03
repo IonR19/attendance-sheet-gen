@@ -14,56 +14,44 @@ const DataWrapper = (props: Props) => {
     to: "",
   });
 
-  const [data, setData] = useState<iRecord[]>(
-    names.map(({ civilID, fileNo, name }) => {
-      return {
-        name,
-        civilID,
-        fileNo,
-        date: "x",
-        type: "F1",
-        timeIn: "2020",
-        location: "",
-      };
-    })
-  );
+  const [data, setData] = useState<iRecord[]>([]);
 
-  useEffect(() => {
-    let startDate = DateTime.fromFormat("yyyy-mm-dd", filterDate.from);
-    let endDate = DateTime.fromFormat("yyyy-mm-dd", filterDate.to);
+  const expandData = () => {
+    let startDate = DateTime.fromFormat(filterDate.from, "yyyy-mm-dd");
+    let endDate = DateTime.fromFormat(filterDate.to, "yyyy-mm-dd");
     let table: iRecord[] = [];
 
-    if (startDate && endDate) {
-      while (isLess(startDate, endDate)) {
-        for (let index = 0; index < data.length; index++) {
-          const element = data[index];
-
-          if (startDate.weekday !== 6 && startDate.weekday !== 5) {
-            table.push({
-              civilID: element.civilID,
-              fileNo: element.fileNo,
-              type: "F1",
-              date: startDate.toISODate().toString(),
-              timeIn: "09:00",
-              location: "مبنى الوزارة الرئيسي",
-            });
-            table.push({
-              civilID: element.civilID,
-              fileNo: element.fileNo,
-              type: "F2",
-              date: startDate.toISODate().toString(),
-              timeIn: "13:00",
-              location: "مبنى الوزارة الرئيسي",
-            });
-          }
-        }
-
-        startDate = startDate.plus({
-          days: 1,
-        });
-      }
-      setData(table);
+    if (!startDate.isValid || !endDate.isValid) {
+      return;
     }
+    if (endDate.diff(startDate).days > 31) {
+      return;
+    }
+
+    for (; isLess(startDate, endDate); startDate = startDate.plus({ days: 1 })) {
+      for (let index = 0; index < names.length; index++) {
+        const element = names[index];
+
+        if (startDate.weekday == 6 || startDate.weekday == 5) {
+          continue;
+        }
+        
+        for (let it = 0; it < 2; ++it) {
+          table.push({
+            civilID: element.civilID,
+            fileNo: element.fileNo,
+            type: it == 0 ? "F1" : "F2",
+            date: startDate.toISODate(),
+            timeIn: it == 0 ? "09:00" : "13:00",
+            location: "مبنى الوزارة الرئيسي",
+          });
+        }
+      }
+    }
+    setData(table);
+  };
+  useEffect(() => {
+    expandData();
   }, [filterDate]);
 
   return (
