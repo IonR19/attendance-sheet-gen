@@ -1,8 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
 import people from "./people";
+import timefilter from "./timefilter";
 
 const reducers = {
   people: people.reducer,
+  timefilter: timefilter.reducer,
 };
 
 const store = configureStore({

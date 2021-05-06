@@ -2,18 +2,17 @@ import React, { useEffect, useState } from "react";
 import { iRecord } from "../types";
 import DisplayTable from "./DisplayTable.comp";
 import TimeFilter from "./TimeFilter.comp";
-import { data as names } from "../../seed/data";
 import { isLess } from "../utils/functions";
 import { DateTime } from "luxon";
 import People from "./People.comp";
+import { selectPeople, selectTimeFilter } from "../hooks";
 
 interface Props {}
 
 const DataWrapper = (props: Props) => {
-  const [filterDate, setFilterDate] = useState({
-    from: "",
-    to: "",
-  });
+  const filterDate = selectTimeFilter();
+
+  const names = selectPeople();
 
   const [data, setData] = useState<iRecord[]>([]);
 
@@ -57,11 +56,7 @@ const DataWrapper = (props: Props) => {
 
   return (
     <>
-      <TimeFilter
-        atChange={(e) => {
-          setFilterDate(e);
-        }}
-      />
+      <TimeFilter />
       <DisplayTable data={data} />
       <People />
     </>
