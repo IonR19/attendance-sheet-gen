@@ -5,6 +5,7 @@ import TimeFilter from "./TimeFilter.comp";
 import { data as names } from "../../seed/data";
 import { isLess } from "../utils/functions";
 import { DateTime } from "luxon";
+import People from "./People.comp";
 
 interface Props {}
 
@@ -35,7 +36,7 @@ const DataWrapper = (props: Props) => {
         if (startDate.weekday == 6 || startDate.weekday == 5) {
           continue;
         }
-        
+
         for (let it = 0; it < 2; ++it) {
           table.push({
             civilID: element.civilID,
@@ -62,6 +63,7 @@ const DataWrapper = (props: Props) => {
         }}
       />
       <DisplayTable data={data} />
+      <People />
     </>
   );
 };
