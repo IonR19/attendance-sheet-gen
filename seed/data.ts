@@ -1,4 +1,5 @@
-type iData = { name: string; civilID: string; fileNo: string };
+import { iData } from ".";
+
 export const data: iData[] = [
   // {
   //   name: "هبه سالم هلال العطوان",
@@ -40,9 +41,9 @@ export const data: iData[] = [
   //   civilID: "295021100204",
   //   fileNo: "41707",
   // },
-  {
-    name: "حنان محمد على العامري",
-    civilID: "286062801547",
-    fileNo: "38762",
-  },
+  // {
+  //   name: "حنان محمد على العامري",
+  //   civilID: "286062801547",
+  //   fileNo: "38762",
+  // },سعد مرزوق سعد الرشيدي
 ];
