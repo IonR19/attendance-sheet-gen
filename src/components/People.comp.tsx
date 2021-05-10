@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectPeople, useAppSelector } from "../hooks";
-import { addPeople, Person } from "../store";
+import { addPeople, Person } from "../store/people";
 
 interface Props {}
 

@@ -6,6 +6,7 @@ import { isLess } from "../utils/functions";
 import { DateTime } from "luxon";
 import People from "./People.comp";
 import { selectPeople, selectTimeFilter } from "../hooks";
+import Controls from "./Controls.comp";
 
 interface Props {}
 
@@ -59,6 +60,7 @@ const DataWrapper = (props: Props) => {
       <TimeFilter />
       <DisplayTable data={data} />
       <People />
+      <Controls />
     </>
   );
 };

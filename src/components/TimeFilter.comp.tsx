@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { selectTimeFilter } from "../hooks";
-import { setTimeFilter } from "../store/timefilter";
+import { setTimeFilter } from "../store";
 interface Props {}
 
 const TimeFilter = (props: Props) => {
