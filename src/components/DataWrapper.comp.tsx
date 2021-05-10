@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { iRecord } from "../types";
 import DisplayTable from "./DisplayTable.comp";
-import TimeFilter from "./TimeFilter.comp";
 import { isLess } from "../utils/functions";
 import { DateTime } from "luxon";
 import People from "./People.comp";
-import { selectPeople, selectTimeFilter } from "../hooks";
+import { selectDateFilter, selectPeople } from "../hooks";
 import Controls from "./Controls.comp";
+import DateFilter from "./DateFilter.comp";
 
 interface Props {}
 
 const DataWrapper = (props: Props) => {
-  const filterDate = selectTimeFilter();
+  const filterDate = selectDateFilter();
 
   const names = selectPeople();
 
@@ -57,7 +57,7 @@ const DataWrapper = (props: Props) => {
 
   return (
     <>
-      <TimeFilter />
+      <DateFilter />
       <DisplayTable data={data} />
       <People />
       <Controls />

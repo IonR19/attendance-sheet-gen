@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import timefilter from "./timefilter";
+import dateFilter from "./datefilter";
 import { createInstance } from "localforage";
 import peopleSplice from "./people/slice";
 
@@ -9,7 +9,7 @@ export const db = createInstance({
 
 const reducers = {
   people: peopleSplice.reducer,
-  timefilter: timefilter.reducer,
+  dateFilter: dateFilter.reducer,
 };
 
 const store = configureStore({

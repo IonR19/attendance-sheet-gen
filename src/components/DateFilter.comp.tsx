@@ -1,17 +1,17 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { selectTimeFilter } from "../hooks";
-import { setTimeFilter } from "../store";
+import { selectDateFilter } from "../hooks";
+import { setDateFilter } from "../store";
 interface Props {}
 
-const TimeFilter = (props: Props) => {
-  const { from, to } = selectTimeFilter();
+const DateFilter = (props: Props) => {
+  const { from, to } = selectDateFilter();
   const dispatch = useDispatch();
 
   const handleDateInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     dispatch(
-      setTimeFilter({
+      setDateFilter({
         from,
         to,
         [name]: value,
@@ -30,4 +30,4 @@ const TimeFilter = (props: Props) => {
   );
 };
 
-export default TimeFilter;
+export default DateFilter;
