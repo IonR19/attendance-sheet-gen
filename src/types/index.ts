@@ -1,7 +1,8 @@
 export interface iUser {
+  id?: string;
   name?: string;
-  civilID: string;
-  fileNo: string;
+  civil_id: string;
+  file_no: string;
 }
 
 export interface iRecord extends iUser {
