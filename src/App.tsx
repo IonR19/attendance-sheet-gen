@@ -2,7 +2,7 @@ import React from "react";
 import { Box, Container } from "react-bulma-components";
 import DisplayTable from "./components/DisplayTable.comp";
 import EmployeesManagment from "./components/EmployeesManagment.comp";
-import TimeFilter from "./components/TimeFilter.comp";
+import InputFilters from "./components/InputFilters.comp";
 
 interface Props {}
 
@@ -13,7 +13,7 @@ const App = (props: Props) => {
         <EmployeesManagment />
       </Box>
       <Box>
-        <TimeFilter />
+        <InputFilters />
       </Box>
       <Box>
         <DisplayTable />

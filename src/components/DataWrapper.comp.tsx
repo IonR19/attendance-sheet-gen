@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { iRecord } from "../types";
 import DisplayTable from "./DisplayTable.comp";
-import TimeFilter from "./TimeFilter.comp";
+import InputFilters from "./InputFilters.comp";
 import { data as names } from "../../seed/data";
 import { isLess } from "../utils/functions";
 import { DateTime } from "luxon";
@@ -68,7 +68,7 @@ const DataWrapper = (props: Props) => {
 
   return (
     <>
-      <TimeFilter
+      <InputFilters
         // atChange={(e) => {
         //   setFilterDate(e);
         // }}
