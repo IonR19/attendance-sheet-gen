@@ -1,7 +1,7 @@
 import React from "react";
 import { Columns, Form } from "react-bulma-components";
 import { useDispatch } from "react-redux";
-import { setEndAt, setFrom, setStartAt, setTo, useTypedSelector } from "../store";
+import { setEndAt, setFrom, setStartAt, setTo, setWeekend, useTypedSelector } from "../store";
 
 interface Props {}
 
@@ -48,6 +48,16 @@ const InputFilters: React.FC<Props> = (props) => {
             value={endAt}
             onChange={(e) => dispatch(setEndAt(e.target.value))}
           ></Form.Input>
+        </Form.Label>
+      </Columns.Column>
+      <Columns.Column>
+        <Form.Label>
+          Disable Weekend
+          <Form.Checkbox
+            onChange={(e) => {
+              dispatch(setWeekend(e.target.checked));
+            }}
+          ></Form.Checkbox>
         </Form.Label>
       </Columns.Column>
     </Columns>

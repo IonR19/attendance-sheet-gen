@@ -6,13 +6,15 @@ import { generate } from "../utils/functions";
 interface Props {}
 
 const DisplayTable: React.FC<Props> = (props) => {
-  const { endAt, startAt, from, to } = useTypedSelector((s) => s.selection);
+  const { endAt, startAt, from, to, weekends } = useTypedSelector((s) => s.selection);
   const employees = useTypedSelector(selectEmployees);
 
   const data = generate(from, to, employees, {
     timeFrom: startAt,
     timeTo: endAt,
+    skipFn: weekends ? (dt) => dt.weekday == 6 || dt.weekday == 5 : undefined,
   });
+
   return (
     <Table hoverable size="fullwidth">
       <thead>
