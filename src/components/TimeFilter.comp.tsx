@@ -1,33 +1,56 @@
-import React, { useState } from "react";
-import { iRange } from "../types";
-interface Props {
-  atChange?: (data: iRange) => any;
-}
+import React from "react";
+import { Columns, Form } from "react-bulma-components";
+import { useDispatch } from "react-redux";
+import { setEndAt, setFrom, setStartAt, setTo, useTypedSelector } from "../store";
 
-const TimeFilter = (props: Props) => {
-  const [filterDate, setFilterDate] = useState<iRange>({
-    from: "",
-    to: "",
-  });
+interface Props {}
 
-  const handleDateInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    setFilterDate({
-      ...filterDate,
-      [name]: value,
-    });
-
-    props.atChange?.(filterDate);
-  };
-
+const TimeFilter: React.FC<Props> = (props) => {
+  const dispatch = useDispatch();
+  const { from, to, endAt, startAt } = useTypedSelector((s) => s.selection);
   return (
-    <>
-      <label htmlFor="in">From</label>
-      <input type="date" id="from" name="from" value={filterDate.from} onChange={handleDateInput} />
-
-      <label htmlFor="to">To</label>
-      <input type="date" id="to" name="to" value={filterDate.to} onChange={handleDateInput} />
-    </>
+    <Columns>
+      <Columns.Column size={3}>
+        <Form.Label>
+          From
+          <Form.Input
+            type="date"
+            value={from}
+            onChange={(e) => dispatch(setFrom(e.target.value))}
+          ></Form.Input>
+        </Form.Label>
+      </Columns.Column>
+      <Columns.Column size={3}>
+        <Form.Label>
+          To
+          <Form.Input
+            type="date"
+            value={to}
+            onChange={(e) => dispatch(setTo(e.target.value))}
+          ></Form.Input>
+        </Form.Label>
+      </Columns.Column>
+      <Columns.Column size={3}>
+        <Form.Label>
+          Start Time
+          <Form.Input
+            type="time"
+            value={startAt}
+            onChange={(e) => dispatch(setStartAt(e.target.value))}
+          ></Form.Input>
+        </Form.Label>
+      </Columns.Column>
+      <Columns.Column size={3}>
+        <Form.Label>
+          End Time
+          <Form.Input
+            type="time"
+            value={endAt}
+            onChange={(e) => dispatch(setEndAt(e.target.value))}
+          ></Form.Input>
+        </Form.Label>
+      </Columns.Column>
+    </Columns>
   );
 };
 
