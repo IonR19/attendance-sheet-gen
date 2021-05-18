@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { iUser } from "../../types";
+import { v4 } from "uuid";
 
 const slice = createSlice({
   name: "employee",
@@ -14,14 +15,25 @@ const slice = createSlice({
       }, {} as typeof state.people);
       state.people = { ...state.people, ...toAdd };
     },
-    add(state, { payload }: PayloadAction<iUser>) {
-      state.people[payload.id!] = payload;
+    addEmployee: {
+      prepare(emp: iUser) {
+        return {
+          payload: {
+            id: v4(),
+            ...emp,
+          },
+        };
+      },
+      reducer(state, { payload }: PayloadAction<iUser>) {
+        state.people[payload.id!] = payload;
+      },
     },
-    remove(state, { payload }: PayloadAction<string>) {
+
+    removeEmployee(state, { payload }: PayloadAction<string>) {
       delete state.people[payload];
     },
   },
 });
 
-export const { add, remove } = slice.actions;
+export const { addEmployee, removeEmployee } = slice.actions;
 export default slice;
