@@ -1,5 +1,6 @@
 import React from "react";
 import EmployeesManagmentImport from "./EmployeesManagmentImport.comp";
+import EmployeesManagmentForm from "./EmployeesManagmentForm.comp";
 import EmployeesManagmentList from "./EmployeesManagmentList.comp";
 
 interface Props {}
@@ -7,8 +8,9 @@ interface Props {}
 const EmployeesManagment: React.FC<Props> = (props) => {
   return (
     <>
-      <EmployeesManagmentList />
+      <EmployeesManagmentForm />
       <EmployeesManagmentImport />
+      <EmployeesManagmentList />
     </>
   );
 };
