@@ -8,12 +8,20 @@ const slice = createSlice({
     people: {} as { [id: string]: iUser },
   },
   reducers: {
-    addGroup(state, { payload }: PayloadAction<iUser[]>) {
-      let toAdd = payload.reduce((pre, cur) => {
-        pre[cur.id!] = cur;
-        return pre;
-      }, {} as typeof state.people);
-      state.people = { ...state.people, ...toAdd };
+    addGroup: {
+      prepare(data: iUser[]) {
+        data.forEach((el) => (el.id = v4()));
+        return {
+          payload: data,
+        };
+      },
+      reducer(state, { payload }: PayloadAction<iUser[]>) {
+        let toAdd = payload.reduce((pre, cur) => {
+          pre[cur.id!] = cur;
+          return pre;
+        }, {} as typeof state.people);
+        state.people = { ...state.people, ...toAdd };
+      },
     },
     addEmployee: {
       prepare(emp: iUser) {
@@ -35,5 +43,5 @@ const slice = createSlice({
   },
 });
 
-export const { addEmployee, removeEmployee } = slice.actions;
+export const { addEmployee, removeEmployee, addGroup } = slice.actions;
 export default slice;

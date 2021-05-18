@@ -1,33 +1,30 @@
 import React from "react";
-import { read } from "xlsx";
+import { Form } from "react-bulma-components";
+import { useDispatch } from "react-redux";
+import { read, utils } from "xlsx";
+import { addGroup } from "../store";
+import { iUser } from "../types";
 interface Props {}
 
 const EmployeesManagmentImport: React.FC<Props> = (props) => {
+  const dispatch = useDispatch();
+
   const onChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     const file = e.target.files?.[0];
     if (!file) return;
     file.arrayBuffer().then((data) => {
       const processedData = read(data, { type: "buffer" });
-      const { Sheets,SheetNames } = processedData;
+      const { Sheets, SheetNames } = processedData;
       const main = Sheets[SheetNames[0]];
-      console.log(main);
-      
-    });
-    //   const reader = new FileReader();
-    //   reader.readAsBinaryString(file);
 
-    //   reader.onload = (e) => {
-    //     const x = read(e.target?.result, { type: "binary" });
-    //     console.log(x);
-    //   };
+      let employees = utils.sheet_to_json<iUser>(main);
+      dispatch(addGroup(employees));
+    });
   };
 
   return (
     <div>
-      <input type="file" onChange={onChange} />
-      <div>
-        <div></div>
-      </div>
+      <Form.InputFile onChange={onChange}></Form.InputFile>
     </div>
   );
 };

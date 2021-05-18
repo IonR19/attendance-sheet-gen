@@ -12,6 +12,7 @@ type options = {
   timeTo?: string;
   location?: string;
   limit?: number;
+  timeModifier?: (start: boolean, time: string) => string;
 };
 
 export function generate(
@@ -41,7 +42,7 @@ export function generate(
         file_no: element.file_no,
         type: "F1",
         date: currentDate.toISODate().toString(),
-        timeIn: timeFrom,
+        timeIn: opt?.timeModifier?.(true, timeFrom) ?? timeFrom,
         location,
       });
       table.push({
@@ -49,7 +50,7 @@ export function generate(
         file_no: element.file_no,
         type: "F2",
         date: currentDate.toISODate().toString(),
-        timeIn: timeTo,
+        timeIn: opt?.timeModifier?.(false, timeTo) ?? timeTo,
         location,
       });
     }

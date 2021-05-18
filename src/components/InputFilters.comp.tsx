@@ -1,13 +1,24 @@
 import React from "react";
 import { Columns, Form } from "react-bulma-components";
 import { useDispatch } from "react-redux";
-import { setEndAt, setFrom, setStartAt, setTo, setWeekend, useTypedSelector } from "../store";
+import {
+  setEndAt,
+  setFrom,
+  setIsDynamic,
+  setStartAt,
+  setThreshold,
+  setTo,
+  setWeekend,
+  useTypedSelector,
+} from "../store";
 
 interface Props {}
 
 const InputFilters: React.FC<Props> = (props) => {
   const dispatch = useDispatch();
-  const { from, to, endAt, startAt } = useTypedSelector((s) => s.selection);
+  const { from, to, endAt, startAt, isDynamic, threshold, weekends } = useTypedSelector(
+    (s) => s.selection
+  );
   return (
     <Columns>
       <Columns.Column size={3}>
@@ -52,12 +63,36 @@ const InputFilters: React.FC<Props> = (props) => {
       </Columns.Column>
       <Columns.Column>
         <Form.Label>
-          Disable Weekend
           <Form.Checkbox
+            checked={weekends}
             onChange={(e) => {
               dispatch(setWeekend(e.target.checked));
             }}
           ></Form.Checkbox>
+          Disable Weekend
+        </Form.Label>
+      </Columns.Column>
+      <Columns.Column size={1}>
+        <Form.Label>
+          <Form.Checkbox
+            checked={isDynamic}
+            onChange={(e) => {
+              dispatch(setIsDynamic(e.target.checked));
+            }}
+          ></Form.Checkbox>
+          Dynamic
+        </Form.Label>
+      </Columns.Column>
+      <Columns.Column size={1}>
+        <Form.Label>
+          Threshold
+          <Form.Input
+            type="number"
+            value={threshold}
+            onChange={(e) => {
+              dispatch(setThreshold(+e.target.value));
+            }}
+          ></Form.Input>
         </Form.Label>
       </Columns.Column>
     </Columns>
