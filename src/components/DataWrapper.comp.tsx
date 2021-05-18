@@ -69,11 +69,11 @@ const DataWrapper = (props: Props) => {
   return (
     <>
       <TimeFilter
-        atChange={(e) => {
-          setFilterDate(e);
-        }}
+        // atChange={(e) => {
+        //   setFilterDate(e);
+        // }}
       />
-      <DisplayTable data={data} />
+      <DisplayTable />
     </>
   );
 };

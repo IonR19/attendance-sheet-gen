@@ -1,13 +1,20 @@
 import React from "react";
-import { iRecord } from "../types";
+import { Table } from "react-bulma-components";
+import { selectEmployees, useTypedSelector } from "../store";
+import { generate } from "../utils/functions";
 
-interface Props {
-  data: iRecord[];
-}
+interface Props {}
 
-const DisplayTable = (props: Props) => {
+const DisplayTable: React.FC<Props> = (props) => {
+  const { endAt, startAt, from, to } = useTypedSelector((s) => s.selection);
+  const employees = useTypedSelector(selectEmployees);
+
+  const data = generate(from, to, employees, {
+    timeFrom: startAt,
+    timeTo: endAt,
+  });
   return (
-    <table>
+    <Table hoverable size="fullwidth">
       <thead>
         <tr>
           <th>civil_id</th>
@@ -19,21 +26,22 @@ const DisplayTable = (props: Props) => {
         </tr>
       </thead>
       <tbody>
-        {props.data.map((record, index) => {
-          const { civilID, date, fileNo, location, timeIn, type } = record;
-          return (
-            <tr key={index}>
-              <td>{civilID}</td>
-              <td>{date}</td>
-              <td>{timeIn}</td>
-              <td>{type}</td>
-              <td>{fileNo}</td>
-              {location && <td>{location}</td>}
-            </tr>
-          );
-        })}
+        {data &&
+          data.map((record, index) => {
+            const { civil_id, date, file_no, location, timeIn, type } = record;
+            return (
+              <tr key={index}>
+                <td>{civil_id}</td>
+                <td>{date}</td>
+                <td>{timeIn}</td>
+                <td>{type}</td>
+                <td>{file_no}</td>
+                {location && <td>{location}</td>}
+              </tr>
+            );
+          })}
       </tbody>
-    </table>
+    </Table>
   );
 };
 
