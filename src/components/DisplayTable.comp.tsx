@@ -1,13 +1,13 @@
 import React from "react";
 import { Table } from "react-bulma-components";
-import { selectEmployees, useTypedSelector } from "../store";
+import { selectActiveEmployees, useTypedSelector } from "../store";
 import { generate } from "../utils/functions";
 
 interface Props {}
 
 const DisplayTable: React.FC<Props> = (props) => {
   const { endAt, startAt, from, to, weekends } = useTypedSelector((s) => s.selection);
-  const employees = useTypedSelector(selectEmployees);
+  const employees = useTypedSelector(selectActiveEmployees);
 
   const data = generate(from, to, employees, {
     timeFrom: startAt,
@@ -16,7 +16,7 @@ const DisplayTable: React.FC<Props> = (props) => {
   });
 
   return (
-    <Table hoverable size="fullwidth">
+    <Table size="fullwidth">
       <thead>
         <tr>
           <th>civil_id</th>

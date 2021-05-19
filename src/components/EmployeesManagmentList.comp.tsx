@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Table } from "react-bulma-components";
 import { useDispatch } from "react-redux";
-import { removeEmployee, selectEmployees, useTypedSelector } from "../store";
+import { removeEmployee, selectEmployees, toggleAllUser, toggleUser, useTypedSelector } from "../store";
 
 interface Props {}
 
@@ -10,31 +10,39 @@ const EmployeesManagmentList: React.FC<Props> = (props) => {
   const dispatch = useDispatch();
 
   return (
-    <div style={{ height: 350, overflowY: "scroll" }}>
-      <Table size="fullwidth" striped>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Civil ID</th>
-            <th>File No</th>
-            <th>Tools</th>
-          </tr>
-        </thead>
-        <tbody>
-          {emps.map((emp) => (
-            <tr key={emp.id!}>
-              <td>{emp.name}</td>
-              <td>{emp.civil_id}</td>
-              <td>{emp.file_no}</td>
-              <td>
-                <Button>Toggle</Button>
-                <Button remove onClick={() => dispatch(removeEmployee(emp.id!))}></Button>
-              </td>
+    <React.Fragment>
+      <div style={{ height: 350, overflowY: "scroll" }}>
+        <Table bordered size="fullwidth">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Civil ID</th>
+              <th>File No</th>
+              <th>Tools</th>
             </tr>
-          ))}
-        </tbody>
-      </Table>
-    </div>
+          </thead>
+          <tbody>
+            {emps.map((emp) => (
+              <tr key={emp.id!} className={!emp.disabled ? "is-selected" : ""}>
+                <td>{emp.name}</td>
+                <td>{emp.civil_id}</td>
+                <td>{emp.file_no}</td>
+                <td>
+                  <Button onClick={() => dispatch(toggleUser(emp.id!))}>
+                    {emp.disabled ? "enable" : "disable"}
+                  </Button>
+                  <Button remove onClick={() => dispatch(removeEmployee(emp.id!))}></Button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      </div>
+      <Button.Group>
+        <Button onClick={() => dispatch(toggleAllUser(true))}>Disable All</Button>
+        <Button onClick={() => dispatch(toggleAllUser(false))}>Enable All</Button>
+      </Button.Group>
+    </React.Fragment>
   );
 };
 
