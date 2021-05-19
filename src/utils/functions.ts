@@ -27,8 +27,8 @@ export function generate(
     ...opt
   }: options
 ) {
-  let currentDate = DateTime.fromFormat(from, "yyyy-mm-dd");
-  let endDate = DateTime.fromFormat(to, "yyyy-mm-dd");
+  let currentDate = DateTime.fromISO(from);
+  let endDate = DateTime.fromISO(to);
   let table: iRecord[] = [];
 
   while (isLess(currentDate, endDate) && limit > -1) {
@@ -53,6 +53,9 @@ export function generate(
         timeIn: opt?.timeModifier?.(false, timeTo) ?? timeTo,
         location,
       });
+    }
+    if (limit === 0) {
+      alert("might have used all rows");
     }
     currentDate = currentDate.plus({
       days: 1,
