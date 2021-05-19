@@ -1,6 +1,10 @@
 import { DateTime } from "luxon";
 import { iRecord, iUser } from "../types";
 
+export function getRandomFromRange(min: number, max: number) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
 export function isLess(date1: DateTime, date2: DateTime) {
   return date1.toMillis() < date2.toMillis();
 }
