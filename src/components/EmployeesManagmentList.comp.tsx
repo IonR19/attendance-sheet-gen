@@ -1,12 +1,20 @@
 import React from "react";
-import { Button, Table } from "react-bulma-components";
+import { Box, Button, Table } from "react-bulma-components";
 import { useDispatch } from "react-redux";
-import { removeEmployee, selectEmployees, toggleAllUser, toggleUser, useTypedSelector } from "../store";
+import {
+  removeEmployee,
+  selectActiveEmployees,
+  selectEmployees,
+  toggleAllUser,
+  toggleUser,
+  useTypedSelector,
+} from "../store";
 
 interface Props {}
 
 const EmployeesManagmentList: React.FC<Props> = (props) => {
   const emps = useTypedSelector(selectEmployees);
+  const activeEmps = useTypedSelector(selectActiveEmployees);
   const dispatch = useDispatch();
 
   return (
@@ -38,6 +46,10 @@ const EmployeesManagmentList: React.FC<Props> = (props) => {
           </tbody>
         </Table>
       </div>
+      <Box>
+        Total:{emps.length}, Disabled:{emps.length - activeEmps.length}, Active:
+        {activeEmps.length}
+      </Box>
       <Button.Group>
         <Button onClick={() => dispatch(toggleAllUser(true))}>Disable All</Button>
         <Button onClick={() => dispatch(toggleAllUser(false))}>Enable All</Button>
