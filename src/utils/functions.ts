@@ -1,4 +1,7 @@
 import { DateTime } from "luxon";
+import { useDispatch } from "react-redux";
+import { setError } from "../store";
+import store from "../store/store";
 import { iRecord, iUser } from "../types";
 
 export function getRandomFromRange(min: number, max: number) {
@@ -27,12 +30,18 @@ export function generate(
     timeFrom = "09:00",
     timeTo = "13:00",
     location = "مبنى الوزارة الرئيسي",
-    limit = 100000,
+    limit = 10000,
     ...opt
   }: options
 ) {
   let currentDate = DateTime.fromISO(from);
   let endDate = DateTime.fromISO(to);
+
+  if (estimatedDays(currentDate, endDate) * employees.length * 2 >= limit) {
+    store.dispatch(setError("exceeded the 10,000 row limit"));
+    return [];
+  }
+
   let table: iRecord[] = [];
 
   while (isLess(currentDate, endDate) && limit > -1) {
@@ -59,11 +68,17 @@ export function generate(
       });
     }
     if (limit === 0) {
-      alert("might have used all rows");
+      store.dispatch(setError("exceeded the 10,000 row limit"));
+      return [];
     }
     currentDate = currentDate.plus({
       days: 1,
     });
   }
+  store.dispatch(setError(""));
   return table;
+}
+
+function estimatedDays(startDate: DateTime, otherDate: DateTime): number {
+  return otherDate.diff(startDate, "days").days;
 }

@@ -10,6 +10,7 @@ const slice = createSlice({
     isDynamic: false,
     threshold: 0 as number,
     weekends: false,
+    error: "",
   },
   reducers: {
     setThreshold(state, { payload }: PayloadAction<number>) {
@@ -33,9 +34,12 @@ const slice = createSlice({
     setWeekend(state, { payload }: PayloadAction<boolean>) {
       state.weekends = payload;
     },
+    setError(state, { payload }: PayloadAction<string>) {
+      state.error = payload;
+    },
   },
 });
 
-export const { setFrom, setTo, setStartAt, setEndAt, setIsDynamic, setThreshold, setWeekend } =
+export const { setFrom, setTo, setStartAt, setEndAt, setIsDynamic, setThreshold, setWeekend, setError } =
   slice.actions;
 export default slice;

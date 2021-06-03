@@ -1,5 +1,5 @@
 import React from "react";
-import { Table } from "react-bulma-components";
+import { Form, Table } from "react-bulma-components";
 import { selectActiveEmployees, useTypedSelector } from "../store";
 import { generate, getRandomFromRange } from "../utils/functions";
 import * as luxon from "luxon";
@@ -7,7 +7,7 @@ import * as luxon from "luxon";
 interface Props {}
 
 const DisplayTable: React.FC<Props> = (props) => {
-  const { endAt, startAt, from, to, weekends, isDynamic, threshold } = useTypedSelector(
+  const { endAt, startAt, from, to, weekends, isDynamic, threshold, error } = useTypedSelector(
     (s) => s.selection
   );
   const employees = useTypedSelector(selectActiveEmployees);
@@ -27,34 +27,39 @@ const DisplayTable: React.FC<Props> = (props) => {
   });
 
   return (
-    <Table size="fullwidth">
-      <thead>
-        <tr>
-          <th>civil_id</th>
-          <th>dateValue</th>
-          <th>Timevalue</th>
-          <th>tamsg</th>
-          <th>file no</th>
-          <th>location</th>
-        </tr>
-      </thead>
-      <tbody>
-        {data &&
-          data.map((record, index) => {
-            const { civil_id, date, file_no, location, timeIn, type } = record;
-            return (
-              <tr key={index}>
-                <td>{civil_id}</td>
-                <td>{date}</td>
-                <td>{timeIn}</td>
-                <td>{type}</td>
-                <td>{file_no}</td>
-                {location && <td>{location}</td>}
-              </tr>
-            );
-          })}
-      </tbody>
-    </Table>
+    <>
+      {error}
+      {!error && (
+        <Table size="fullwidth">
+          <thead>
+            <tr>
+              <th>civil_id</th>
+              <th>dateValue</th>
+              <th>Timevalue</th>
+              <th>tamsg</th>
+              <th>file no</th>
+              <th>location</th>
+            </tr>
+          </thead>
+          <tbody>
+            {data &&
+              data.map((record, index) => {
+                const { civil_id, date, file_no, location, timeIn, type } = record;
+                return (
+                  <tr key={index}>
+                    <td>{civil_id}</td>
+                    <td>{date}</td>
+                    <td>{timeIn}</td>
+                    <td>{type}</td>
+                    <td>{file_no}</td>
+                    {location && <td>{location}</td>}
+                  </tr>
+                );
+              })}
+          </tbody>
+        </Table>
+      )}
+    </>
   );
 };
 
