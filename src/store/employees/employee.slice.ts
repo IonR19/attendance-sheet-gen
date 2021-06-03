@@ -48,11 +48,16 @@ const slice = createSlice({
         state.people[k].disabled = payload;
       }
     },
+    flipAllUsers(state) {
+      for (let k in state.people) {
+        state.people[k].disabled = !state.people[k].disabled;
+      }
+    },
     removeEmployee(state, { payload }: PayloadAction<string>) {
       delete state.people[payload];
     },
   },
 });
 
-export const { addEmployee, removeEmployee, addGroup, toggleUser, toggleAllUser } = slice.actions;
+export const { addEmployee, removeEmployee, addGroup, toggleUser, toggleAllUser, flipAllUsers } = slice.actions;
 export default slice;

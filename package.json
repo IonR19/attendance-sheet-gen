@@ -2,7 +2,7 @@
   "name": "attendance-sheet-gen",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "index.html",
   "dependencies": {
     "@parcel/transformer-sass": "^2.0.0-beta.2",
     "@reduxjs/toolkit": "^1.5.1",

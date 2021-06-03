@@ -2,6 +2,7 @@ import React from "react";
 import { Box, Button, Table } from "react-bulma-components";
 import { useDispatch } from "react-redux";
 import {
+  flipAllUsers,
   removeEmployee,
   selectActiveEmployees,
   selectEmployees,
@@ -53,6 +54,7 @@ const EmployeesManagmentList: React.FC<Props> = (props) => {
       <Button.Group>
         <Button onClick={() => dispatch(toggleAllUser(true))}>Disable All</Button>
         <Button onClick={() => dispatch(toggleAllUser(false))}>Enable All</Button>
+        <Button onClick={() => dispatch(flipAllUsers())}>Flip Users</Button>
       </Button.Group>
     </React.Fragment>
   );
