@@ -19,6 +19,7 @@ const EmployeesManagmentImport: React.FC<Props> = (props) => {
 
       let employees = utils.sheet_to_json<iUser>(main);
       dispatch(addGroup(employees));
+      e.target.value = "";
     });
   };
 
