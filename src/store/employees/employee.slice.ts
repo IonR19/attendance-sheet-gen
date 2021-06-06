@@ -14,6 +14,16 @@ const slice = createSlice({
   reducers: {
     addGroup: {
       prepare(data: iUser[]) {
+        let invalidData = data.filter(
+          (row) => !(`${row.file_no}`.length === 5 && `${row.civil_id}`.length === 12)
+        );
+        if (invalidData.length) {
+          alert(
+            "some values were not added because of invalid enteries " +
+              JSON.stringify(invalidData.slice(0, 3))
+          );
+        }
+        data = data.filter((row) => row.file_no.length === 5 && row.civil_id.length === 12);
         data.forEach((el) => (el.id = v4()));
         return {
           payload: data,
@@ -59,5 +69,6 @@ const slice = createSlice({
   },
 });
 
-export const { addEmployee, removeEmployee, addGroup, toggleUser, toggleAllUser, flipAllUsers } = slice.actions;
+export const { addEmployee, removeEmployee, addGroup, toggleUser, toggleAllUser, flipAllUsers } =
+  slice.actions;
 export default slice;
