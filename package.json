@@ -9,17 +9,17 @@
     "bulma": "^0.9.2",
     "gh-pages": "^3.2.0",
     "luxon": "^1.26.0",
-    "parcel": "^2.0.0-beta.2",
     "moment": "^2.29.1",
+    "parcel": "^2.0.0-beta.2",
     "react": "^17.0.2",
     "react-bulma-components": "^4.0.4",
     "react-dom": "^17.0.2",
     "react-redux": "^7.2.4",
     "uuid": "^8.3.2",
-    "xlsx": "^0.17.0",
-    "@parcel/transformer-sass": "^2.0.0-beta.2"
+    "xlsx": "^0.17.0"
   },
   "devDependencies": {
+    "@parcel/transformer-sass": "^2.0.0-beta.2",
     "@types/luxon": "^1.26.5",
     "@types/react": "^17.0.4",
     "@types/react-dom": "^17.0.3",
