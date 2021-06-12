@@ -1,8 +1,9 @@
 import React from "react";
-import { Form, Table } from "react-bulma-components";
 import { selectActiveEmployees, useTypedSelector } from "../store";
 import { generate, getRandomFromRange } from "../utils/functions";
 import * as luxon from "luxon";
+import { Button, Columns, Table } from "react-bulma-components";
+import { utils, writeFile } from "xlsx";
 
 interface Props {}
 
@@ -26,8 +27,23 @@ const DisplayTable: React.FC<Props> = (props) => {
       : undefined,
   });
 
+  const onClick = () => {
+    let dataToExport = utils.json_to_sheet(data);
+    let workbook = utils.book_new();
+    workbook.SheetNames.push("Sheet1");
+    workbook.Sheets = { Sheet1: dataToExport };
+    writeFile(workbook, "attendance.xlsx", { bookType: "xlsx" });
+  };
+
   return (
     <>
+      <Columns>
+        <Columns.Column alignItems="center">
+          <Button type="button" color="primary" display="block" onClick={onClick}>
+            Export as Excel (beta)
+          </Button>
+        </Columns.Column>
+      </Columns>
       {error}
       {!error && (
         <Table size="fullwidth">
