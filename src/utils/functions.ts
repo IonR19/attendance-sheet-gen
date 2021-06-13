@@ -55,7 +55,9 @@ export function generate(
         file_no: element.file_no,
         type: "F1",
         date: currentDate.toISODate().toString(),
-        timeIn: opt?.timeModifier?.(true, timeFrom) ?? timeFrom,
+        timeIn:
+          opt?.timeModifier?.(true, timeFrom) ??
+          DateTime.fromFormat(timeFrom, "hh:mm").toFormat("hh:mm:ss"),
         location,
       });
       table.push({
@@ -63,7 +65,9 @@ export function generate(
         file_no: element.file_no,
         type: "F2",
         date: currentDate.toISODate().toString(),
-        timeIn: opt?.timeModifier?.(false, timeTo) ?? timeTo,
+        timeIn:
+          opt?.timeModifier?.(false, timeTo) ??
+          DateTime.fromFormat(timeTo, "hh:mm").toFormat("hh:mm:ss"),
         location,
       });
     }

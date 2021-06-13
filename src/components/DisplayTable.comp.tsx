@@ -22,7 +22,7 @@ const DisplayTable: React.FC<Props> = (props) => {
           const extra = getRandomFromRange(0, threshold);
           let modifiedTime = luxon.Duration.fromISOTime(tm);
           modifiedTime = modifiedTime.plus({ minutes: start ? -extra : extra });
-          return modifiedTime.toISOTime();
+          return modifiedTime.toFormat("hh:mm:ss");
         }
       : undefined,
   });
