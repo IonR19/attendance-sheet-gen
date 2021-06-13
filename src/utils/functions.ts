@@ -44,7 +44,7 @@ export function generate(
 
   let table: iRecord[] = [];
 
-  while (isLess(currentDate, endDate) && limit > -1) {
+  while (isLess(currentDate, endDate) || (currentDate.toISO() == endDate.toISO() && limit > -1)) {
     --limit;
     for (let index = 0; index < employees.length; index++) {
       const element = employees[index];
