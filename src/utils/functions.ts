@@ -12,6 +12,10 @@ export function isLess(date1: DateTime, date2: DateTime) {
   return date1.toMillis() < date2.toMillis();
 }
 
+export function isLessOrEqual(date1: DateTime, date2: DateTime) {
+  return date1.toMillis() <= date2.toMillis();
+}
+
 type options = {
   skipdates?: string[];
   skipFn?: (dt: DateTime) => boolean;
@@ -44,7 +48,7 @@ export function generate(
 
   let table: iRecord[] = [];
 
-  while (isLess(currentDate, endDate) || (currentDate.toISO() == endDate.toISO() && limit > -1)) {
+  while (isLessOrEqual(currentDate, endDate) && limit > -1) {
     --limit;
     for (let index = 0; index < employees.length; index++) {
       const element = employees[index];
