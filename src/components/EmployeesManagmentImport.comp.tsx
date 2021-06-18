@@ -17,7 +17,7 @@ const EmployeesManagmentImport: React.FC<Props> = (props) => {
       const { Sheets, SheetNames } = processedData;
       const main = Sheets[SheetNames[0]];
 
-      let employees = utils.sheet_to_json<iUser>(main);
+      let employees = utils.sheet_to_json<iUser>(main, { raw: false });
       dispatch(addGroup(employees));
       e.target.value = "";
     });
