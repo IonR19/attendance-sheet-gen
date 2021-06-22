@@ -34,7 +34,7 @@ export function generate(
     timeFrom = "09:00",
     timeTo = "13:00",
     location = "مبنى الوزارة الرئيسي",
-    limit = 10000,
+    limit = 50000,
     ...opt
   }: options
 ) {
@@ -42,7 +42,7 @@ export function generate(
   let endDate = DateTime.fromISO(to);
 
   if (estimatedDays(currentDate, endDate) * employees.length * 2 >= limit) {
-    store.dispatch(setError("exceeded the 10,000 row limit"));
+    store.dispatch(setError("exceeded the 50,000 row limit"));
     return [];
   }
 
@@ -76,7 +76,7 @@ export function generate(
       });
     }
     if (limit === 0) {
-      store.dispatch(setError("exceeded the 10,000 row limit"));
+      store.dispatch(setError("exceeded the 50,000 row limit"));
       return [];
     }
     currentDate = currentDate.plus({
