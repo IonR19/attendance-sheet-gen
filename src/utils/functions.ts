@@ -1,4 +1,4 @@
-import { DateTime } from "luxon";
+import { DateTime, Duration } from "luxon";
 import { useDispatch } from "react-redux";
 import { setError } from "../store";
 import store from "../store/store";
@@ -61,7 +61,7 @@ export function generate(
         date: currentDate.toISODate().toString(),
         timeIn:
           opt?.timeModifier?.(true, timeFrom) ??
-          DateTime.fromFormat(timeFrom, "hh:mm").toFormat("hh:mm:ss"),
+          Duration.fromISOTime(timeFrom).toISOTime({ suppressMilliseconds: true }),
         location,
       });
       table.push({
@@ -71,7 +71,7 @@ export function generate(
         date: currentDate.toISODate().toString(),
         timeIn:
           opt?.timeModifier?.(false, timeTo) ??
-          DateTime.fromFormat(timeTo, "hh:mm").toFormat("hh:mm:ss"),
+          Duration.fromISOTime(timeTo).toISOTime({ suppressMilliseconds: true }),
         location,
       });
     }
